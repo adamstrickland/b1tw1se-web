@@ -6,4 +6,4 @@
 
 (defpage "/welcome" []
          (common/layout
-           [:p "Welcome to b1tw1se-web"]))
+           [:h1 "Welcome to b1tw1se-web"]))
