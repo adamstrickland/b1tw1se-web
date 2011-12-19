@@ -6,4 +6,6 @@
 
 (defpage "/welcome" []
          (common/layout
-           [:h1 "Welcome to b1tw1se-web"]))
+           [:h1 "Welcome to b1tw1se"]
+           [:h2 "a community by programmers for programmers"]  
+         ))
