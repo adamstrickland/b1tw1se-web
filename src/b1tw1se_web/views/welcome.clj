@@ -1,6 +1,7 @@
 (ns b1tw1se-web.views.welcome
   (:require [b1tw1se-web.views.common :as common]
-            [noir.content.getting-started])
+            ; [noir.content.getting-started]
+            )
   (:use [noir.core :only [defpage]]
         [hiccup.core :only [html]]))
 
