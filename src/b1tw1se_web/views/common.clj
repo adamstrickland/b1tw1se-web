@@ -16,6 +16,9 @@
                 [:meta {:name "viewport", :content "width=device-width,initial-scale=1"}]
                 (include-css "/css/style.css" "/css/noir.css")
                 (include-js "/js/libs/modernizr-2.0.6.min.js")
+                (include-js "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
+                ; (javascript-tag "window.jQuery || document.write('<script src=\"/js/libs/jquery-1.7.1.min.js\"></script>')")
+                (include-js "/js/plugins.js" "/js/script.js")
               ]
               [:body
                 [:div#container
@@ -23,9 +26,6 @@
                   [:div#main {:role "main"} content]
                   [:footer ""]
                 ]
-                (include-js "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js")
-                ; (javascript-tag "window.jQuery || document.write('<script src=\"/js/libs/jquery-1.6.2.min.js\"></script>')")
-                (include-js "/js/plugins.js" "/js/script.js")
                 ; (javascript-tag window.gaq = [['_setAccount', 'UAXXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
                 ;                  Modernizr.load({
                 ;                   load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
@@ -93,7 +93,7 @@
 ;   (when (not (connection? *mongo-config*))
 ;     (init-mongo (first ["mongodb://localhost:27017/b1tw1se"]))))
 
-(defn db [] (make-connection "b1tw1se" "127.0.0.1" 27017))
+(def conn (make-connection "b1tw1se" :host "127.0.0.1" :port 27017))
 
 
 
