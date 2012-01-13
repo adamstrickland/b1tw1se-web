@@ -23,21 +23,21 @@
 ;       (common/layout 
 ; 	      [:h1 "Welcome to b1tw1se"] 
 ; 	      [:h2 "a community for programmers by programmers"] 
-; 	      [:p (str "You are visitor number " (or (:value counter) 0))]))))
+; ; 	      [:p (str "You are visitor number " (or (:value counter) 0))]))))
 
-(defrecord account [_id first-name last-name])
+; (defrecord account [_id first-name last-name])
 
-(defrecord post [_id author created_at content])
+; (defrecord post [_id author created_at content])
 
-(defrecord thread [
-	_id
-	title
-	posts])
+; (defrecord thread [
+; 	_id
+; 	title
+; 	posts])
 
-(defrecord board [
-	_id 
-	title 
-	threads])
+; (defrecord board [
+; 	_id 
+; 	title 
+; 	threads])
 
 (defpage "/main" []
 	(defn board-row [b]

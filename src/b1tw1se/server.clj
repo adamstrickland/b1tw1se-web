@@ -1,8 +1,8 @@
 (ns b1tw1se.server
   (:require [noir.server :as server]))
 
-(server/load-views "src/b1tw1se_web/views/")
-(server/load-views "src/b1tw1se_web/models/")
+(server/load-views "src/b1tw1se/models/")
+(server/load-views "src/b1tw1se/views/")
 
 (defn -main [& m]
   (let [mode (keyword (or (first m) :dev))

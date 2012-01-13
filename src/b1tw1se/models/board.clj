@@ -1,14 +1,19 @@
 (ns b1tw1se.models.board
-  (:require [simpledb.core :as db]
-            [clj-time.core :as ctime]
-            [clj-time.format :as tform]
-            [clj-time.coerce :as coerce]
-            [clojure.string :as string]
+  (:require [clojure.string :as string]
             [noir.validation :as val]
-            [noir.session :as session])
-)
+            [noir.session :as session]
+            [b1tw1se.models.topic :as topic])
+  (:use somnium.congomongo)
+  (:use [somnium.congomongo.config :only [*mongo-config*]]))
 
-(defrecord board [
+(defrecord Board [
 	_id 
 	title 
-	threads])
+	topics])
+
+(defn init [rec] (Board. (:_id rec) (:title rec) (map #(topic/init %) (:threads rec))))
+
+(defn find-all []
+      (with-mongo common/conn
+            (let [boards (fetch :boards)]
+                  (map #(init %) boards))))
