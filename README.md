@@ -1,4 +1,4 @@
-# b1tw1se-web
+# b1tw1se
 
 A website written in noir. 
 

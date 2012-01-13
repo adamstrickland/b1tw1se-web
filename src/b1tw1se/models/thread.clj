@@ -1,4 +1,4 @@
-(ns b1tw1se-web.models.thread
+(ns b1tw1se.models.thread
   (:require [simpledb.core :as db]
             [clj-time.core :as ctime]
             [clj-time.format :as tform]

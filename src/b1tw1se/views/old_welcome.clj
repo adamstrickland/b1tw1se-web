@@ -1,5 +1,5 @@
-(ns b1tw1se-web.views.old_welcome
-  (:require [b1tw1se-web.views.common :as common] )
+(ns b1tw1se.views.old_welcome
+  (:require [b1tw1se.views.common :as common] )
   (:use [noir.core :only [defpage]]
         [hiccup.core :only [html]]))
 

@@ -1,4 +1,4 @@
-(ns b1tw1se-web.views.common
+(ns b1tw1se.views.common
   (:use [noir.core :only [defpartial]]
         [hiccup.core]
         [hiccup.page-helpers])

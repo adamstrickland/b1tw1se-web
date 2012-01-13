@@ -1,4 +1,4 @@
-(ns b1tw1se-web.models.post
+(ns b1tw1se.models.post
   (:require [simpledb.core :as db]
             [clj-time.core :as ctime]
             [clj-time.format :as tform]

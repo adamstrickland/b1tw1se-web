@@ -1,5 +1,5 @@
-(ns b1tw1se-web.views.signup
-  (:require [b1tw1se-web.views.common :as common])
+(ns b1tw1se.views.signup
+  (:require [b1tw1se.views.common :as common])
   (:use noir.core
         hiccup.core
         hiccup.form-helpers

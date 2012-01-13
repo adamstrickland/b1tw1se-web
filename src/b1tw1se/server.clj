@@ -1,4 +1,4 @@
-(ns b1tw1se-web.server
+(ns b1tw1se.server
   (:require [noir.server :as server]))
 
 (server/load-views "src/b1tw1se_web/views/")
@@ -8,5 +8,5 @@
   (let [mode (keyword (or (first m) :dev))
         port (Integer. (get (System/getenv) "PORT" "8080"))]
     (server/start port {:mode mode
-                        :ns 'b1tw1se-web})))
+                        :ns 'b1tw1se})))
 
