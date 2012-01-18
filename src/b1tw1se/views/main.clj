@@ -9,16 +9,6 @@
   (:use somnium.congomongo)
   (:use [somnium.congomongo.config :only [*mongo-config*]]))
 
-(defpartial identity-block []
-  	[:div#identity 
-  		[:div#welcome "Welcome " (link-to "/account/42" "Adam")]
-  		[:div#gate (link-to "/signout" "Sign Out")]])
-
-(defpartial navigation-block []
-	[:ul.navigation
-		[:li.item (link-to "/main" "Main")]
-		[:li.item (link-to "/blah" "Blah")]])
-
 
 ; (defpage "/index" []
 ;   (with-mongo common/conn
@@ -49,8 +39,8 @@
 	 			});
 	 		});
 	 	")
-	  	(identity-block)
-	  	(navigation-block)
+	  	(common/identity-block)
+	  	(common/navigation-block)
 	  	[:div#boards
 	  		[:table#listing 
 	  			[:thead

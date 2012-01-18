@@ -23,10 +23,19 @@
     (let [boards (fetch :boards)]
       (map #(init %) boards))))
 
-(defn find-fake []
-  (cons (Board. (uuid) "Salary & Stuff" [
+(defn fake-board []
+  (Board. (uuid) "Salary & Stuff" [
     (Topic. (uuid) "How much do you make?" [
-      (Post. (uuid) (Account. (uuid) "Adam" "Strickland") "2012-01-01" "This year, with bonus, I'll pull in $155K (that's $140K salary + ~ $15K bonus)")])]) (find-all)))
+      (Post. (uuid) (Account. (uuid) "Adam" "Strickland") "2012-01-01" "This year, with bonus, I'll pull in $155K (that's $140K salary + ~ $15K bonus)")])]))
+
+(defn find-one [id]
+  (with-mongo conn/init 
+      ; [:div (str "BOARD " (:title (with-mongo conn/init (fetch :boards :one? true :where {:_id (object-id id)}))))]
+    (fetch :boards :one? true :where {:_id (object-id id)})))
+  ; fake-board)
+
+(defn find-fake []
+  (cons (fake-board) (find-all)))
 
 ; (defn find-fake [] nil)
 (defn create [title]
