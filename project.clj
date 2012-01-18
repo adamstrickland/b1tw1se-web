@@ -3,6 +3,7 @@
             :dependencies [[org.clojure/clojure "1.3.0"]
                            [noir "1.2.1"]
                            [congomongo "0.1.5-SNAPSHOT"]
-                           [clj-oauth/clj-oauth "1.2.10-SNAPSHOT"]]
+                           [clj-oauth/clj-oauth "1.2.10-SNAPSHOT"]
+                           [clj-time "0.3.4"]]
             :main b1tw1se.server)
 

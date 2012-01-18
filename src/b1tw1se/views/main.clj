@@ -1,7 +1,10 @@
 (ns b1tw1se.views.main
-  (:require [b1tw1se.views.common :as common])
+  (:require [b1tw1se.views.common :as common]
+	  		[b1tw1se.config.connection :as conn]
+	        [b1tw1se.models.board :as board])
   (:use noir.core
         hiccup.core
+        hiccup.form-helpers
         hiccup.page-helpers)
   (:use somnium.congomongo)
   (:use [somnium.congomongo.config :only [*mongo-config*]]))
@@ -25,73 +28,44 @@
 ; 	      [:h2 "a community for programmers by programmers"] 
 ; ; 	      [:p (str "You are visitor number " (or (:value counter) 0))]))))
 
-; (defrecord account [_id first-name last-name])
-
-; (defrecord post [_id author created_at content])
-
-; (defrecord thread [
-; 	_id
-; 	title
-; 	posts])
-
-; (defrecord board [
-; 	_id 
-; 	title 
-; 	threads])
-
 (defpage "/main" []
 	(defn board-row [b]
-		(let [t (first (:threads b))]
+		(let [t (first (:topics b))
+			  p (first (:posts t))
+			  a (:author p)]
 			[:tr
-				[:th.topic (link-to (str "/boards/" (:_id b))) (:title b)]
+				[:th.topic (link-to (str "/boards/" (:_id b)) (:title b))]
 				[:td.activity 
 					[:div.topic_heading (link-to (str "/boards/" (:_id b) "/threads/" (:_id t)) (:title t))]
-					[:div.topic_byline (link-to (str "/accounts/" (:_id (:author (first (:posts t)))) "/profile") (:first-name (:author (first (:posts t))))) ", " (:created_at (first (:posts t)))]]
+					[:div.topic_byline (link-to (str "/accounts/" (:_id a) "/profile") (:first-name a)) ", " (:created_at p)]]
 				[:td.stats 
 					[:div.topic_thread_stats "123" " threads: " "456" " active, " "3" " recently"]
 					[:div.topic_post_stats "11" " posts: " "989" " recent"]]]))
-	(with-mongo common/conn
-		(common/layout
-		  	(identity-block)
-		  	(navigation-block)
-		  	[:div#boards
-		  		[:table#listing 
-		  			[:thead
-		  				[:tr
-		  					[:th "Topic"]
-		  					[:th "Activity"]
-		  					[:th "Stats"]]]
-		  			[:tbody
-		  				(let [boards [
-			  				(board. 1 "Salary & Stuff" [
-			  					(thread. 1 "How much do you make?" [
-			  						(post. 1 (account. 1 "Adam" "Strickland") "2012-01-01" "This year, with bonus, I'll pull in $155K (that's $140K salary + ~ $15K bonus)")])])
-			  				]]
-		  				; (let [boards (fetch :boards)]
-			  				(map board-row boards))]]])))
-
-; (defpage "/main" []
-; 	(def f [board]
-; 		(let [id (:_id board) boardname (:name board) tthread (first (:threads board)) ttaccount (:account tthread)]
-; 		[:tr
-; 				[:th.topic (link-to (str "/boards/" id) boardname)]
-; 				[:td.activity 
-; 					[:div.topic_heading (link-to (str "/boards/" id "/threads/" (:_id tthread)) (:title tthread))]
-; 					[:div.topic_byline (link-to (str "/accounts/" (:_id ttaccount) "/profile") (:name ttaccount)) ", " (:created_at tthread)]]
-; 				[:td.stats 
-; 					[:div.topic_thread_stats (:count (:threads board)) " threads: " (:count (:active? (:threads board))) " active, " (:count (:recent? (:active? (:threads board)))) " recently"]
-; 					[:div.topic_post_stats (:count (:posts board)) " posts: " (:count (:recent? (:posts board))) " recent"]]]))
-; 	(with-mongo common/conn
-; 		(common/layout
-; 		  	(identity-block)
-; 		  	(navigation-block)
-; 		  	[:div#boards
-; 		  		[:table#listing 
-; 		  			[:thead
-; 		  				[:tr
-; 		  					[:th "Topic"]
-; 		  					[:th "Activity"]
-; 		  					[:th "Stats"]]]
-; 		  			[:tbody
-; 						(let [boards (fetch :boards)]
-; 							(apply f boards))]]])))
+	(common/layout
+		(javascript-tag "
+			$(document).ready(function(){
+	 			$('#new_board_activator').click(function(){
+	 				$('#new_board_control').fadeIn();
+	 			});
+	 		});
+	 	")
+	  	(identity-block)
+	  	(navigation-block)
+	  	[:div#boards
+	  		[:table#listing 
+	  			[:thead
+	  				[:tr
+	  					[:th "Board"]
+	  					[:th "Topic"]
+	  					[:th "Stats"]]]
+	  			[:tbody
+	  				(let [boards (board/find-fake)]
+		  				(map board-row boards))]]
+		  	[:div#admincontrol
+		  		[:a#new_board_activator {:href "#"} "New Board"]
+		  		[:div#new_board_control {:style "display:none"}
+			  		(form-to [:post "/boards/create"]
+			  			(label "title" "Title")
+			  			[:br]
+			  			(text-field "title")
+			  			(submit-button "Create"))] ]]))
