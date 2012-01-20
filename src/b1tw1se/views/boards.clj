@@ -15,6 +15,11 @@
 	(response/redirect "/main"))
 
 (defpage "/boards/:id" {:keys [id]}
+	(defn topic-row [t]
+		(let [p (first (:posts t))
+			  a (:author p)]
+			[:tr
+				[:th.topic (link-to (str "/topics/" (:_id t)) (:title t))]]))
 	(common/layout
 		(javascript-tag "
 			$(document).ready(function(){
@@ -30,7 +35,7 @@
 				[:div#boardcontrols
 					[:a#new_topic_activator {:href "#"} "New Topic"]
 					[:div#new_topic_control {:style "display:none"}
-						(form-to [:post (str "/boards/" (:_id brd) "/topics/create/")]
+						(form-to [:post (str "/boards/" (:_id brd) "/topics/create")]
 							(label "title" "Title")
 							[:br]
 							(text-field "title")
@@ -40,4 +45,10 @@
 							(text-area "content")
 							[:br]
 							(submit-button "Create"))]]
-				[:div#topics "TOPICS GO HERE!"]))))
+				[:div#topics 
+					[:table#topics
+						[:thead
+							[:tr
+								[:th#title "Title"]]]
+						[:tbody
+							(map topic-row (:topics brd))]]]))))

@@ -14,7 +14,20 @@
 
 (defn init [rec] (Topic. (:_id rec) (:title rec) (map #(post/init %) (:posts rec))))
 
-(defn create [title content user board_id]
+(defn create [title board_id]
 	(with-mongo conn/init
-		(let [board (fetch-one :boards {:_id board_id})]
-			(update! :boards board (merge board {:topics (cons {:_id (uuid) :title title :posts [(post/create content user)]} (:topics board))} )) )))
+		(let [b (fetch-by-id :boards (object-id board_id))]
+; (merge t {:topics (cons {:title "dbag 2"} (:topics t))})
+      (update! :boards b (merge b {:topics (cons {:_id (uuid) 
+                                                  ; :posts [(post/create content user)]
+                                                  :title title } (:topics b))})))))
+
+
+			; (update! :boards b (merge b {:topics (cons {:_id (uuid) 
+   ;                                                :title title 
+   ;                                                ; :posts [(post/create content user)]
+   ;                                               } (or (:topics b) []))} )) )))
+
+
+(defn find-one [id]
+  nil)

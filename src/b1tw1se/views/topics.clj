@@ -11,6 +11,15 @@
   (:use somnium.congomongo)
   (:use [somnium.congomongo.config :only [*mongo-config*]]))
 
-  (defpage [:post "/boards/:id/topics/create"] {:keys [id title content]}
-  	(topic/create title content (session/get "userid") id)
-  	(response/redirect (str "/boards/" id)))
+  ; (defpage [:post "/boards/:id/topics/create"] {:keys [id title content]}
+  ; 	(topic/create title content (session/get "userid") id)
+  ; 	(response/redirect (str "/boards/" id)))
+
+  (defpage [:post "/boards/:id/topics/create"] {:keys [id title]}
+    (topic/create title id)
+    (response/redirect (str "/boards/" id)))
+    
+  (defpage "/topics/:id" {:keys [id]}
+    (common/layout
+      (let [t (topic/find-one id)]
+        [:h2 (:title t)])))
