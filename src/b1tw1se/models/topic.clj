@@ -3,7 +3,7 @@
             [noir.validation :as val]
             [noir.session :as session]
             [b1tw1se.models.post :as post]
-            [b1tw1se.config.connection :as conn])
+            [b1tw1se.config.database :as database])
   (:use somnium.congomongo)
   (:use b1tw1se.lib.uuid)
   (:use [somnium.congomongo.config :only [*mongo-config*]]))
@@ -15,7 +15,7 @@
 (defn init [rec] (Topic. (:_id rec) (:title rec) (map #(post/init %) (:posts rec))))
 
 (defn create [title board_id]
-	(with-mongo conn/init
+	(with-mongo database/connection
 		(let [b (fetch-by-id :boards (object-id board_id))]
 ; (merge t {:topics (cons {:title "dbag 2"} (:topics t))})
       (update! :boards b (merge b {:topics (cons {:_id (uuid) 

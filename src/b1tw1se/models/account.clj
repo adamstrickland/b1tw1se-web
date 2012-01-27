@@ -2,7 +2,7 @@
   (:require [clojure.string :as string]
             [noir.validation :as val]
             [noir.session :as session]
-            [b1tw1se.config.connection :as conn])
+            [b1tw1se.config.database :as database])
   (:use somnium.congomongo)
   (:use b1tw1se.lib.uuid)
   (:use [somnium.congomongo.config :only [*mongo-config*]]))
@@ -15,7 +15,7 @@
 (defn init [rec] (Account. (:_id rec) (:first-name rec) (:last-name rec)))
 
 (defn create [email fname lname]
-	(with-mongo conn/init
+	(with-mongo database/connection
 		(insert! :accounts {:email email 
 							:first-name fname 
 							:last-name lname})))

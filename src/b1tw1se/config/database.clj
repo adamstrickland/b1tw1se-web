@@ -1,11 +1,17 @@
-(ns b1tw1se.config.connection
+(ns b1tw1se.config.database
   (:use [noir.core :only [defpartial]]
         [hiccup.core]
         [hiccup.page-helpers])
   (:use [somnium.congomongo])
   (:use [somnium.congomongo.config :only [*mongo-config*]]))
 
-(def init (make-connection "b1tw1se" :host "127.0.0.1" :port 27017))
+(def db-name "b1tw1se")
+
+(def db-host "127.0.0.1")
+
+(def db-port 27017)
+
+(def ^:dynamic connection (make-connection db-name :host db-host :port db-port))
 
 ; (defn split-mongo-url [url]
 ;   "Parses mongodb url from heroku, eg. mongodb://user:pass@host:port/db"
