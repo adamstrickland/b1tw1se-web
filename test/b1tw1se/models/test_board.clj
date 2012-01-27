@@ -9,8 +9,19 @@
 	(:use [clojure.data.json :only (read-json json-str)])
 	(:import [com.mongodb BasicDBObject BasicDBObjectBuilder]))
 
-(deftest find-all-boards
+(deftest find-all
 	(with-test-mongo
 		(let [results (board/find-all)]
 			(is (= 1 (count results)))
 			(is (= seed-board-title (:title (first results)))))))
+
+(deftest find-one
+	(with-test-mongo
+		(let [brdid get-seed-board-id
+			  result (board/find-one (str brdid))]
+			(is (= seed-board-title (:title result))))))
+
+(deftest create
+	(with-test-mongo
+		(let [t "Flurb"]
+			(is (= t (:title (board/create t)))))))

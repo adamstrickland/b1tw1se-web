@@ -18,6 +18,8 @@
 
 (def seed-board-title "The Increasingly Inaccurately-Named Hitchhiker's Guide To The Galaxy Trilogy")
 
+(def get-seed-board-id (with-mongo test-connection (first (map #(str (:_id %)) (fetch :boards)))))
+
 (def seed-board {:title seed-board-title :topics []})
 
 (defn seed! []
