@@ -5,7 +5,7 @@
        [congomongo "0.1.5-SNAPSHOT"]
        [clj-oauth/clj-oauth "1.2.10-SNAPSHOT"]
        [clj-time "0.3.4"]]
-	:dev-dependencies [[com.stuartsierra/lazytest "1.1.2"]
+	:dev-dependencies [[com.stuartsierra/lazytest "1.2.3"]
        [lein-autotest "1.1.0"]]
 	:repositories {"stuartsierra-releases" "http://stuartsierra.com/maven2"}
        :main b1tw1se.server)
