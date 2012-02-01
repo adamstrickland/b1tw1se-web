@@ -1,12 +1,12 @@
 (ns b1tw1se.views.boards
   (:require [b1tw1se.views.common :as common]
-	  		[b1tw1se.config.connection :as conn]
-	        [b1tw1se.models.board :as board]
-	        [noir.response :as response])
+	[b1tw1se.config.database :as conn]
+	[b1tw1se.models.board :as board]
+	[noir.response :as response])
   (:use noir.core
-        hiccup.core
-        hiccup.form-helpers
-        hiccup.page-helpers)
+	hiccup.core
+	hiccup.form-helpers
+	hiccup.page-helpers)
   (:use somnium.congomongo)
   (:use [somnium.congomongo.config :only [*mongo-config*]]))
 
@@ -45,7 +45,7 @@
 							(text-area "content")
 							[:br]
 							(submit-button "Create"))]]
-				[:div#topics 
+				[:div#topics
 					[:table#topics
 						[:thead
 							[:tr

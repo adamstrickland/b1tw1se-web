@@ -1,6 +1,6 @@
 (ns b1tw1se.views.topics
   (:require [b1tw1se.views.common :as common]
-	  		[b1tw1se.config.connection :as conn]
+	  		[b1tw1se.config.database :as conn]
 	        [b1tw1se.models.topic :as topic]
 	        [noir.response :as response]
 	        [noir.session :as session])
@@ -18,7 +18,7 @@
   (defpage [:post "/boards/:id/topics/create"] {:keys [id title]}
     (topic/create title id)
     (response/redirect (str "/boards/" id)))
-    
+
   (defpage "/topics/:id" {:keys [id]}
     (common/layout
       (let [t (topic/find-one id)]

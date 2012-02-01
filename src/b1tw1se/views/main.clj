@@ -1,6 +1,6 @@
 (ns b1tw1se.views.main
   (:require [b1tw1se.views.common :as common]
-	  		[b1tw1se.config.connection :as conn]
+	  		[b1tw1se.config.database :as conn]
 	        [b1tw1se.models.board :as board])
   (:use noir.core
         hiccup.core
@@ -13,9 +13,9 @@
 ; (defpage "/index" []
 ;   (with-mongo common/conn
 ;     (let [counter (fetch-and-modify :firstcollection {:_id "counter"} {:$inc {:value 1}} :return-new true :upsert? true)]
-;       (common/layout 
-; 	      [:h1 "Welcome to b1tw1se"] 
-; 	      [:h2 "a community for programmers by programmers"] 
+;       (common/layout
+; 	      [:h1 "Welcome to b1tw1se"]
+; 	      [:h2 "a community for programmers by programmers"]
 ; ; 	      [:p (str "You are visitor number " (or (:value counter) 0))]))))
 
 (defpage "/main" []
@@ -25,10 +25,10 @@
 			  a (:author p)]
 			[:tr
 				[:th.topic (link-to (str "/boards/" (:_id b)) (:title b))]
-				[:td.activity 
+				[:td.activity
 					[:div.topic_heading (link-to (str "/boards/" (:_id b) "/threads/" (:_id t)) (:title t))]
 					[:div.topic_byline (link-to (str "/accounts/" (:_id a) "/profile") (:first-name a)) ", " (:created_at p)]]
-				[:td.stats 
+				[:td.stats
 					[:div.topic_thread_stats "123" " threads: " "456" " active, " "3" " recently"]
 					[:div.topic_post_stats "11" " posts: " "989" " recent"]]]))
 	(common/layout
@@ -42,7 +42,7 @@
 	  	(common/identity-block)
 	  	(common/navigation-block)
 	  	[:div#boards
-	  		[:table#listing 
+	  		[:table#listing
 	  			[:thead
 	  				[:tr
 	  					[:th "Board"]
